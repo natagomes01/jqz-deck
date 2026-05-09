@@ -592,12 +592,14 @@
   .slide-footer-line { width: 56px; height: 2px; background: var(--green-dark); }
 
   /* =========================================================
-     SITE MODE — viewport <1024px
+     SITE MODE — viewport <1024px (apenas em tela)
      Slides perdem canvas fixo e viram seções fluidas verticais.
      IntersectionObserver continua funcionando (a classe .in-view é
      aplicada do mesmo jeito; transforms são neutralizados aqui).
+     `screen and` impede que essas regras vazem para @media print —
+     o PDF deve sempre usar o modo apresentação 1280×720.
      ========================================================= */
-  @media (max-width: 1023px) {
+  @media screen and (max-width: 1023px) {
     body { background: var(--white); }
     .deck { padding: 0; gap: 0; align-items: stretch; }
     .slide-wrap {
@@ -770,10 +772,10 @@
   }
 
   /* =========================================================
-     PHONE MODE — viewport <640px
+     PHONE MODE — viewport <640px (apenas em tela)
      Telas estreitas: colapsar grids 2-col remanescentes para 1 col.
      ========================================================= */
-  @media (max-width: 639px) {
+  @media screen and (max-width: 639px) {
     .kpi-grid { grid-template-columns: 1fr; }
     .pillars { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: 1fr; }
