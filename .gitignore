@@ -1,9 +1,15 @@
-# Pool de origem (PPT + extração) — não versionar
+# Modelo: GitHub = artefato deploy. Drive = trabalho, docs, histórico.
+
+# Pool de origem (PPT + extração)
 _source/
 _extracao/
 
-# Snapshots HTML do /stamp (pesados, git já é histórico)
-_log/*.html
+# Histórico local de versões (/stamp output, fica no Drive)
+_log/
+
+# Documentos de trabalho (PRD, CLAUDE.md, CONTEXT, brand voice, etc.)
+# README na raiz é README.rst — esse sim renderiza no GitHub
+*.md
 
 # Build legado (substituído por GitHub Action)
 dist/
