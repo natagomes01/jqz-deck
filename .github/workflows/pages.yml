@@ -20,16 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Stage site
-        run: |
-          mkdir -p _site
-          cp jqz-deck-2026.html _site/index.html
-          cp -R images _site/images
+      - name: Build deck variant 'full'
+        run: bash build.sh full
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: public
 
   deploy:
     needs: build

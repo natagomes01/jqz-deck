@@ -5,35 +5,55 @@ Pitch deck institucional **J Queiroz · 2026**. HTML puro, exportável para PDF,
 
 Produzido por **Albatroz Studio** para J Queiroz Comércio e Serviços Ltda.
 
-Status
-------
+Modos de exibição
+-----------------
 
-Estado atual: deck monolítico funcional (``jqz-deck-2026.html``).
-Refatoração modular em planejamento: split em partials, dual-mode (apresentação 16:9 + site responsivo), variantes por cliente.
+* **≥1024px**: apresentação 16:9 (canvas 1280×720, scaling proporcional via JS).
+* **<1024px**: site fluido (slides como seções verticais, scroll contínuo).
+* **Print**: força 1280×720 sempre (export para PDF independente do viewport).
 
-Estrutura
----------
+Mesmo URL serve os três modos, alternando via ``@media``.
+
+Estrutura modular
+-----------------
 
 ================================  ============================================
 Caminho                           O que é
 ================================  ============================================
-``jqz-deck-2026.html``            Arquivo de trabalho atual (32 slides)
-``images/``                       Imagens usadas pelo deck (31 arquivos curados)
+``src/layouts/deck-shell.html``   Shell único (head + CSS dual-mode + JS)
+``src/slides/NN-<slug>.html``     32 partials de slide
+``src/variants/full.json``        Manifest com a ordem dos slides
+``src/components/``               Snippets compartilhados (reservado)
+``build.sh``                      Assembler bash + python3
+``images/``                       Pool curado de imagens (31 arquivos)
 ``.github/workflows/pages.yml``   Pipeline de publicação no GitHub Pages
 ================================  ============================================
 
-Documentos de trabalho (PRD, brand voice, design tokens, histórico) ficam locais no Drive — não versionados no GitHub.
+Documentos de trabalho (CLAUDE.md, PRD, design tokens, brand voice, snapshots de versão) ficam locais no Drive, gitignored.
 
-Local
------
+Build local
+-----------
 
 ::
 
-   open jqz-deck-2026.html
+   bash build.sh full
+   open public/index.html
+
+Para gerar PDF (precisa Chrome ou Chromium instalado)::
+
+   bash build.sh full --pdf
+   open public/index.pdf
+
+Variantes por cliente
+---------------------
+
+Para criar uma variante com subset dos slides, adicionar ``src/variants/<nome>.json`` no formato de ``full.json`` (com array ``slides`` na ordem desejada), depois::
+
+   bash build.sh <nome>
 
 Deploy
 ------
 
-Push em ``main`` aciona a Action que publica em GitHub Pages.
+Push em ``main`` aciona a Action que roda ``bash build.sh full`` e publica ``public/`` em GitHub Pages.
 
 URL pública: https://natagomes01.github.io/jqz-deck/

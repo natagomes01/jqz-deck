@@ -14,6 +14,9 @@ _log/
 # Build legado (substituído por GitHub Action)
 dist/
 
+# Build output (regenerado por bash build.sh ou pela GitHub Action)
+public/
+
 # PDFs gerados
 *.pdf
 
