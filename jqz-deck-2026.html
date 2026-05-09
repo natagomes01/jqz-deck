@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J Queiroz · Engenharia Ferroviária · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red-deep:    #8B1A1A;
+    --red-mid:     #B22222;
+    --red-light:   #C0392B;
+    --green-dark:  #2E3B26;
+    --green-mid:   #3A4A30;
+    --green-light: #4A5A3C;
+    --charcoal:    #1C1C1C;
+    --gray-dark:   #3D3D3D;
+    --gray-mid:    #6B6B6B;
+    --gray-light:  #C8C8C8;
+    --cream:       #F2EFE8;
+    --white:       #F7F5F0;
+    --sem-ok:      #2E7D32;
+    --sem-warn:    #F57F17;
+    --sem-crit:    #C62828;
+    --ease-soft:   cubic-bezier(.22,.61,.36,1);
+  }
+
+  html, body {
+    width: 100%;
+    background: #2a2a2a;
+    font-family: 'Inter', sans-serif;
+    color: var(--charcoal);
+  }
+
+  .deck { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 40px 0; }
+  .slide-wrap { margin-bottom: 24px; }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    min-height: 720px;
+    max-height: 720px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .8s var(--ease-soft), transform .8s var(--ease-soft);
+  }
+  .slide.in-view { opacity: 1; transform: translateY(0); }
+
+  .slide-label {
+    color: #888; font-family: 'Inter', sans-serif; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 6px; align-self: flex-start; width: 1280px;
+  }
+
+  /* ════ COVER ════ */
+  .slide-cover { background: var(--red-deep); flex-direction: row; }
+  .cover-left {
+    width: 58%; padding: 80px 72px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; z-index: 2;
+  }
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .cover-brand {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 96px; font-weight: 800;
+    line-height: 0.92; color: var(--white); text-transform: uppercase;
+    letter-spacing: -0.01em; margin-top: 12px;
+  }
+  .cover-brand span {
+    display: block; font-size: 32px; font-weight: 400; letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.7); margin-top: 12px;
+  }
+  .cover-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 600;
+    color: var(--white); line-height: 1.2; margin-top: 56px;
+  }
+  .cover-meta {
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400;
+    color: rgba(255,255,255,0.45); line-height: 1.7;
+  }
+  .cover-right {
+    width: 42%; background: var(--green-dark);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0; position: relative;
+  }
+  .cover-right-pattern {
+    position: absolute; inset: 0; opacity: 0.07;
+    background-image:
+      repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 32px);
+  }
+  .cover-right-content { padding: 56px 48px 64px; position: relative; }
+  .cover-clients-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 24px;
+  }
+  .cover-clients { display: flex; flex-direction: column; gap: 12px; }
+  .client-item {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700;
+    color: var(--white); letter-spacing: 0.02em;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.12);
+    opacity: 0; transform: translateX(-12px);
+    transition: opacity .6s var(--ease-soft), transform .6s var(--ease-soft);
+  }
+  .slide.in-view .client-item { opacity: 1; transform: translateX(0); }
+  .slide.in-view .client-item:nth-child(1) { transition-delay: .3s; }
+  .slide.in-view .client-item:nth-child(2) { transition-delay: .4s; }
+  .slide.in-view .client-item:nth-child(3) { transition-delay: .5s; }
+  .slide.in-view .client-item:nth-child(4) { transition-delay: .6s; }
+  .slide.in-view .client-item:nth-child(5) { transition-delay: .7s; }
+  .slide.in-view .client-item:nth-child(6) { transition-delay: .8s; }
+  .client-item:last-child { border-bottom: none; }
+
+  /* ════ DEFAULT ════ */
+  .slide-default { background: var(--white); flex-direction: column; }
+  .slide-header {
+    background: var(--red-deep); padding: 18px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .slide-header-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+  }
+  .slide-header-brand {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700;
+    color: rgba(255,255,255,0.9); letter-spacing: 0.06em;
+  }
+  .slide-body { flex: 1 1 0; min-height: 0; overflow: hidden; padding: 32px 64px 28px; display: flex; flex-direction: column; }
+  .slide-section-tag {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--green-dark); margin-bottom: 14px;
+  }
+  .slide-h1 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 46px; font-weight: 700;
+    color: var(--red-deep); line-height: 1.05; margin-bottom: 18px;
+  }
+  .slide-h2 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 38px; font-weight: 700;
+    color: var(--red-deep); line-height: 1.1; margin-bottom: 20px;
+  }
+  .slide-p {
+    font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 400;
+    color: var(--gray-dark); line-height: 1.7; max-width: 880px;
+  }
+  .slide-p + .slide-p { margin-top: 14px; }
+  .slide-lead {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 600;
+    color: var(--green-dark); line-height: 1.3; max-width: 880px; margin-bottom: 8px;
+  }
+
+  /* ════ Slide 02 · Quem Somos (blocos grandes) ════ */
+  .quem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; flex: 1; min-height: 0;
+  }
+  .quem-card {
+    background: var(--cream); padding: 24px 28px;
+    border-left: 5px solid var(--red-deep);
+    display: flex; flex-direction: column;
+  }
+  .quem-card.alt { border-left-color: var(--green-dark); }
+  .quem-card-head {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gray-mid); margin-bottom: 14px;
+  }
+  .quem-card-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800;
+    color: var(--red-deep); line-height: 1.05; margin-bottom: 14px; text-transform: uppercase;
+  }
+  .quem-card.alt .quem-card-title { color: var(--green-dark); }
+  .quem-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .quem-list li {
+    font-family: 'Inter', sans-serif; font-size: 14.5px; font-weight: 500;
+    color: var(--charcoal); padding-left: 20px; position: relative; line-height: 1.45;
+  }
+  .quem-list li::before {
+    content: ''; position: absolute; left: 0; top: 9px;
+    width: 10px; height: 2px; background: var(--red-mid);
+  }
+  .quem-card.alt .quem-list li::before { background: var(--green-dark); }
+
+  /* ════ Slide 03 · Client cards (static, fade-in sequencial) ════ */
+  .clients-grid-flip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-top: 16px;
+  }
+  .client-card {
+    position: relative;
+    width: 100%;
+    padding-top: 40%;
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .6s var(--ease-soft), transform .6s var(--ease-soft);
+  }
+  .slide.in-view .client-card { opacity: 1; transform: translateY(0); }
+  .slide.in-view .client-card:nth-child(1)  { transition-delay: .15s; }
+  .slide.in-view .client-card:nth-child(2)  { transition-delay: .25s; }
+  .slide.in-view .client-card:nth-child(3)  { transition-delay: .35s; }
+  .slide.in-view .client-card:nth-child(4)  { transition-delay: .45s; }
+  .slide.in-view .client-card:nth-child(5)  { transition-delay: .55s; }
+  .slide.in-view .client-card:nth-child(6)  { transition-delay: .65s; }
+  .slide.in-view .client-card:nth-child(7)  { transition-delay: .75s; }
+  .slide.in-view .client-card:nth-child(8)  { transition-delay: .85s; }
+  .slide.in-view .client-card:nth-child(9)  { transition-delay: .95s; }
+  .slide.in-view .client-card:nth-child(10) { transition-delay: 1.05s; }
+  .slide.in-view .client-card:nth-child(11) { transition-delay: 1.15s; }
+  .slide.in-view .client-card:nth-child(12) { transition-delay: 1.25s; }
+  .client-card-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 8px 12px 10px;
+  }
+  .client-card-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--gray-mid);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.65;
+    text-align: left;
+  }
+  .client-card-logo {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6px 8px 0;
+    overflow: hidden;
+  }
+  .client-card-logo img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* ════ KPIs ════ */
+  .slide-kpi { background: var(--cream); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .kpi-card {
+    background: var(--white); border-top: 4px solid var(--red-mid);
+    padding: 18px 18px 16px;
+    transition: transform .4s var(--ease-soft), box-shadow .4s var(--ease-soft);
+  }
+  .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .kpi-number {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 800;
+    color: var(--red-deep); line-height: 1; letter-spacing: -0.02em;
+  }
+  .kpi-unit {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 600;
+    color: var(--red-mid);
+  }
+  .kpi-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+    color: var(--gray-mid); margin-top: 8px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .kpi-desc {
+    font-family: 'Inter', sans-serif; font-size: 11.5px;
+    color: var(--gray-dark); margin-top: 6px; line-height: 1.45;
+  }
+
+  /* ════ SECTION ════ */
+  .slide-section { background: var(--green-dark); flex-direction: row; align-items: stretch; }
+  .section-bar { width: 10px; background: var(--red-deep); flex-shrink: 0; }
+  .section-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 88px; position: relative;
+  }
+  .section-pattern {
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image: repeating-linear-gradient(45deg, #fff 0 1px, transparent 1px 32px);
+    pointer-events: none;
+  }
+  .section-content::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 28% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 72%);
+    pointer-events: none;
+  }
+  .section-number {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 220px; font-weight: 800;
+    color: rgba(255,255,255,0.06);
+    position: absolute; right: 72px; bottom: 32px;
+    line-height: 1; letter-spacing: -0.04em;
+  }
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-bottom: 20px; position: relative;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 96px; font-weight: 800;
+    color: var(--white); line-height: 0.95; text-transform: uppercase;
+    letter-spacing: -0.01em; position: relative;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .section-subtitle {
+    font-family: 'Inter', sans-serif; font-size: 17px;
+    color: rgba(255,255,255,0.85); margin-top: 24px;
+    max-width: 620px; line-height: 1.6; position: relative;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  }
+
+  /* ════ PROJECT (image + big numbers) ════ */
+  .slide-project { background: var(--white); flex-direction: column; }
+  .project-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .project-media { background: var(--charcoal); position: relative; overflow: hidden; }
+  .project-media img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s var(--ease-soft);
+  }
+  .slide.in-view .project-media img { transform: scale(1.04); }
+  .project-media-tag {
+    position: absolute; top: 24px; left: 24px;
+    background: var(--red-deep); color: var(--white); padding: 6px 14px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .project-flag {
+    position: absolute; top: 24px; right: 24px;
+    background: var(--green-dark); color: var(--white); padding: 6px 14px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .project-content {
+    padding: 36px 44px;
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: 0;
+  }
+  .project-client {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green-dark); margin-bottom: 12px;
+  }
+  .project-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700;
+    color: var(--red-deep); line-height: 1.05; margin-bottom: 10px;
+  }
+  .project-tagline {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 600;
+    color: var(--green-dark); line-height: 1.3; margin-bottom: 14px;
+  }
+  .project-desc {
+    font-family: 'Inter', sans-serif; font-size: 13.5px;
+    color: var(--gray-dark); line-height: 1.55; margin-bottom: 18px;
+  }
+  .big-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    border-top: 2px solid var(--red-deep); padding-top: 16px;
+  }
+  .big-stats.three { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .big-stat-num {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 38px; font-weight: 800;
+    color: var(--red-deep); line-height: 1; letter-spacing: -0.01em;
+  }
+  .big-stats.three .big-stat-num { font-size: 30px; }
+  .big-stat-unit {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 600;
+    color: var(--red-mid);
+  }
+  .big-stat-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray-mid); margin-top: 6px;
+  }
+
+  /* ════ GALLERY ════ */
+  .slide-gallery { background: var(--cream); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; flex: 1; }
+  .gallery-item { overflow: hidden; position: relative; background: var(--charcoal); transition: transform .5s var(--ease-soft); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-soft); }
+  .gallery-item:hover { transform: translateY(-4px); }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85), rgba(0,0,0,0));
+    color: var(--white); font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 500; padding: 32px 16px 14px;
+  }
+
+  /* ════ TIMELINE MOUNTAIN ════ */
+  .slide-timeline { background: var(--white); }
+  .mountain-wrap {
+    margin-top: 16px;
+    position: relative;
+    width: 100%;
+    height: 380px;
+  }
+  .mountain-svg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+  }
+  .mountain-points {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  .mp {
+    position: absolute;
+    transform: translateX(-50%);
+    margin-top: -9px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+  }
+  .mp-dot {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--red-deep); border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--red-deep);
+    transform: scale(0);
+    transition: transform .5s var(--ease-soft);
+    flex-shrink: 0;
+  }
+  .slide.in-view .mp .mp-dot { transform: scale(1); }
+  .mp-year {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800;
+    color: var(--red-deep); margin-top: 8px;
+  }
+  .mp-event {
+    font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500;
+    color: var(--gray-dark); line-height: 1.4; margin-top: 4px;
+    max-width: 130px;
+  }
+  .slide.in-view .mp:nth-child(1) .mp-dot { transition-delay: .4s; }
+  .slide.in-view .mp:nth-child(2) .mp-dot { transition-delay: .7s; }
+  .slide.in-view .mp:nth-child(3) .mp-dot { transition-delay: 1.0s; }
+  .slide.in-view .mp:nth-child(4) .mp-dot { transition-delay: 1.3s; }
+  .slide.in-view .mp:nth-child(5) .mp-dot { transition-delay: 1.6s; }
+  .slide.in-view .mp:nth-child(6) .mp-dot { transition-delay: 1.9s; }
+  .slide.in-view .mp:nth-child(7) .mp-dot { transition-delay: 2.2s; }
+  .slide.in-view .mp:nth-child(8) .mp-dot { transition-delay: 2.5s; }
+
+  /* ════ PILLARS ════ */
+  .pillars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 36px; flex: 1; }
+  .pillar {
+    background: var(--white); border-top: 3px solid var(--green-dark);
+    padding: 28px 22px; display: flex; flex-direction: column;
+    transition: transform .4s var(--ease-soft), border-color .4s var(--ease-soft);
+  }
+  .pillar:hover { transform: translateY(-6px); border-top-color: var(--red-deep); }
+  .pillar-num {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+    color: var(--red-mid); letter-spacing: 0.16em; margin-bottom: 14px;
+  }
+  .pillar-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700;
+    color: var(--red-deep); line-height: 1.1; margin-bottom: 12px;
+  }
+  .pillar-desc {
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    color: var(--gray-dark); line-height: 1.55;
+  }
+
+  /* ════ PLACEHOLDER ════ */
+  .placeholder-tag {
+    display: inline-block;
+    background: var(--cream); color: var(--red-mid);
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 6px 14px; border: 1.5px dashed var(--red-mid);
+    margin-bottom: 12px;
+  }
+  .project-media.placeholder {
+    background: repeating-linear-gradient(45deg, #2a2a2a 0 12px, #333 12px 24px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ph-mark {
+    color: rgba(255,255,255,0.5);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* ════ Saúde & Segurança ════ */
+  .ss-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-top: 32px;
+  }
+  .ss-card {
+    background: var(--green-dark); color: var(--white);
+    padding: 28px 24px; display: flex; flex-direction: column;
+  }
+  .ss-card.red { background: var(--red-deep); }
+  .ss-num {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 56px; font-weight: 800;
+    line-height: 1; color: var(--white);
+  }
+  .ss-num small {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 600;
+    color: rgba(255,255,255,0.7);
+  }
+  .ss-label {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); margin-top: 12px;
+  }
+  .ss-desc {
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    color: rgba(255,255,255,0.85); line-height: 1.5; margin-top: 8px;
+  }
+
+  /* ════ CLOSE ════ */
+  .slide-close { background: var(--red-deep); flex-direction: row; }
+  .close-left { flex: 1; padding: 80px 72px; display: flex; flex-direction: column; justify-content: center; }
+  .close-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 88px; font-weight: 800;
+    color: var(--white); line-height: 0.95; text-transform: uppercase;
+  }
+  .close-sub {
+    font-family: 'Inter', sans-serif; font-size: 17px;
+    color: rgba(255,255,255,0.7); margin-top: 28px; line-height: 1.7; max-width: 480px;
+  }
+  .close-contacts { margin-top: 56px; display: flex; flex-direction: column; gap: 14px; }
+  .contact-item { display: flex; align-items: center; gap: 14px; }
+  .contact-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-mid); flex-shrink: 0; }
+  .contact-text { font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255,255,255,0.8); }
+  .close-right {
+    width: 400px; background: var(--charcoal);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 56px 48px; gap: 28px;
+  }
+  .close-logo-big {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 110px; font-weight: 800;
+    color: var(--white); line-height: 0.9; text-align: center; letter-spacing: -0.02em;
+  }
+  .close-logo-sub {
+    font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 400;
+    color: rgba(255,255,255,0.4); letter-spacing: 0.18em; text-transform: uppercase; text-align: center;
+  }
+  .close-bar { width: 56px; height: 3px; background: var(--red-mid); }
+
+  /* ════ FOOTER ════ */
+  .slide-footer {
+    padding: 10px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--gray-light); background: var(--white);
+    flex-shrink: 0;
+  }
+  .slide-footer-brand {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--red-deep); letter-spacing: 0.06em;
+  }
+  .slide-footer-page { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--gray-mid); }
+  .slide-footer-line { width: 56px; height: 2px; background: var(--green-dark); }
+
+  /* ════ PRINT ════ */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff; margin: 0; padding: 0; }
+    .deck { padding: 0; gap: 0; }
+    .slide-wrap { height: auto !important; overflow: visible !important; margin-bottom: 0 !important; }
+    .slide-label { display: none !important; }
+    .slide {
+      box-shadow: none;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      opacity: 1 !important;
+      transform: none !important;
+      width: 1280px !important;
+      height: 720px !important;
+      min-height: 720px !important;
+      max-height: 720px !important;
+      overflow: hidden !important;
+    }
+    .slide:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+    .slide *, .slide *::before, .slide *::after {
+      transition: none !important; animation: none !important;
+    }
+    .client-item, .mp .mp-dot, .client-card { opacity: 1 !important; transform: none !important; }
+    .slide.in-view .mp .mp-dot { transform: scale(1) !important; }
+    .project-media img { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- ════ 01 · CAPA ════ -->
+  <div class="slide-label">Slide 01 · Capa</div>
+  <div class="slide slide-cover">
+    <div class="cover-left">
+      <div>
+        <span class="cover-eyebrow">Engenharia Ferroviária · Desde 2009</span>
+        <div class="cover-brand">
+          J Queiroz
+          <span>Soluções em Ferrovia</span>
+        </div>
+        <div class="cover-title">
+          Projetos e Atividades.<br>2009 a 2026.
+        </div>
+      </div>
+      <div class="cover-meta">
+        Apresentação institucional &nbsp;·&nbsp; Maio 2026<br>
+        J Queiroz Comércio e Serviços Ltda.
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="cover-right-pattern"></div>
+      <div class="cover-right-content">
+        <div class="cover-clients-label">Onde estamos</div>
+        <div class="cover-clients">
+          <div class="client-item">VALE</div>
+          <div class="client-item">Wabtec</div>
+          <div class="client-item">Siemens</div>
+          <div class="client-item">Alstom</div>
+          <div class="client-item">MetrôRio</div>
+          <div class="client-item">SuperVia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ 02 · QUEM SOMOS (copy enxuto, blocos grandes) ════ -->
+  <div class="slide-label">Slide 02 · Quem Somos</div>
+  <div class="slide slide-default">
+    <div class="slide-header">
+      <span class="slide-header-title">Quem Somos</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">A J Queiroz em uma frase</div>
+      <div class="slide-h1">Engenharia ferroviária<br>onde a operação não pode parar.</div>
+      <p class="slide-lead">
+        Atuamos onde o trem precisa rodar amanhã. Janelas de manutenção curtas. Cronogramas que não cedem. Segurança que não negocia.
+      </p>
+      <div class="quem-grid">
+        <div class="quem-card">
+          <div class="quem-card-head">O que entregamos</div>
+          <div class="quem-card-title">Frentes de Atuação</div>
+          <ul class="quem-list">
+            <li>Sinalização e circuitos de via</li>
+            <li>Via permanente: dormentes, soldas, lastro</li>
+            <li>Energia e rede aérea de alta tensão</li>
+            <li>Telecom, pátios e passagens de nível</li>
+            <li>Material rodante: trens, motores, truques</li>
+          </ul>
+        </div>
+        <div class="quem-card alt">
+          <div class="quem-card-head">Por que somos chamados</div>
+          <div class="quem-card-title">Diferenciais</div>
+          <ul class="quem-list">
+            <li>17 anos sem interrupção no setor ferroviário</li>
+            <li>Frota própria. Mobilização imediata.</li>
+            <li>Operação em janela de 1h30 por dia</li>
+            <li>Auditoria Vale aprovada. Acidente zero.</li>
+            <li>Cronograma mantido mesmo na pandemia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">02</span>
+    </div>
+  </div>
+
+  <!-- ════ 03 · CLIENTES (flip cards) ════ -->
+  <div class="slide-label">Slide 03 · Clientes</div>
+  <div class="slide slide-default">
+    <div class="slide-header">
+      <span class="slide-header-title">Quem confia em nós</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Passe o cursor para revelar</div>
+      <div class="slide-h1">Os parceiros que sustentam<br>a malha ferroviária brasileira.</div>
+      <div class="clients-grid-flip">
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">MRS</div>
+            <div class="client-card-logo"><img src="images/s04-img011.png" alt="MRS"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Vale</div>
+            <div class="client-card-logo"><img src="images/s04-img014.png" alt="Vale"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Wabtec</div>
+            <div class="client-card-logo"><img src="images/s04-img013.png" alt="Wabtec"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">MetrôRio</div>
+            <div class="client-card-logo"><img src="images/s04-img006.png" alt="MetrôRio"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">SuperVia</div>
+            <div class="client-card-logo"><img src="images/s04-img010.png" alt="SuperVia"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">VLT Carioca</div>
+            <div class="client-card-logo"><img src="images/s04-img007.png" alt="VLT Carioca"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Alstom</div>
+            <div class="client-card-logo"><img src="images/s04-img008.png" alt="Alstom"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Siemens</div>
+            <div class="client-card-logo"><img src="images/s04-img009.png" alt="Siemens"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Rumo</div>
+            <div class="client-card-logo"><img src="images/Rumo_Logistica_logo.svg.png" alt="Rumo"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Motiva (CCR)</div>
+            <div class="client-card-logo"><img src="images/Motiva.svg" alt="Motiva (CCR)"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Wise</div>
+            <div class="client-card-logo"><img src="images/wise.png" alt="Wise"></div>
+          </div>
+        </div>
+        <div class="client-card">
+          <div class="client-card-inner">
+            <div class="client-card-name">Águas do Rio</div>
+            <div class="client-card-logo"><img src="images/logo_aguas_rio.webp" alt="Águas do Rio"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">03</span>
+    </div>
+  </div>
+
+  <!-- ════ 04 · INDICADORES ════ -->
+  <div class="slide-label">Slide 04 · Indicadores</div>
+  <div class="slide slide-default slide-kpi">
+    <div class="slide-header">
+      <span class="slide-header-title">Números que comprovam</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Track record acumulado</div>
+      <div class="slide-h1">Operação que atravessa<br>os maiores nomes do setor.</div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-number">17<span class="kpi-unit">anos</span></div>
+          <div class="kpi-label">Sem interrupção</div>
+          <div class="kpi-desc">Atuação contínua no setor ferroviário desde 2009.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">87<span class="kpi-unit">PNs</span></div>
+          <div class="kpi-label">Passagens de nível</div>
+          <div class="kpi-desc">55 na EFC e 32 na EFVM. Contratos Wabtec e Vale.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">3,7<span class="kpi-unit">k m³</span></div>
+          <div class="kpi-label">Brita substituída</div>
+          <div class="kpi-desc">Linha 2 do MetrôRio em 12 meses, janela de 1h30 por dia.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">10<span class="kpi-unit">k+</span></div>
+          <div class="kpi-label">Dormentes</div>
+          <div class="kpi-desc">Substituições executadas em todas as linhas do MetrôRio.</div>
+        </div>
+      </div>
+      <div class="kpi-grid" style="margin-top: 14px;">
+        <div class="kpi-card">
+          <div class="kpi-number">200<span class="kpi-unit">km+</span></div>
+          <div class="kpi-label">Cabos lançados</div>
+          <div class="kpi-desc">Sinalização e energização em ferrovias de carga.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">35<span class="kpi-unit">km</span></div>
+          <div class="kpi-label">Linha 4 RJ</div>
+          <div class="kpi-desc">Sistema de Comando D.A.T. para os Jogos Olímpicos 2016.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">12<span class="kpi-unit">+</span></div>
+          <div class="kpi-label">Grandes clientes</div>
+          <div class="kpi-desc">Operadores e fabricantes nacionais e globais.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-number">2<span class="kpi-unit">anos</span></div>
+          <div class="kpi-label">1º lugar em segurança Vale</div>
+          <div class="kpi-desc">Premiação consecutiva por desempenho em saúde e segurança nos contratos Vale.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">04</span>
+    </div>
+  </div>
+
+  <!-- ════ 05 · CINCO FRENTES ════ -->
+  <div class="slide-label">Slide 05 · Cinco Frentes</div>
+  <div class="slide slide-default">
+    <div class="slide-header">
+      <span class="slide-header-title">Cinco Frentes de Atuação</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Como organizamos a operação</div>
+      <div class="slide-h1">O que entregamos<br>de ponta a ponta.</div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Sinalização</div>
+          <div class="pillar-desc">Circuitos de via, sistemas de comando, integração com Wabtec, Siemens e Alstom. Mais de 33 mil metros de cabos lançados.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Energia e Rede Aérea</div>
+          <div class="pillar-desc">Rede aérea 13kV, subestações de alta tensão, montagem de reativos e lançamento de cabos.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Telecom e Pátios</div>
+          <div class="pillar-desc">Infraestrutura de telecom em estações, automação de pátios, passagens de nível e tratamento de tração.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <div class="pillar-title">Via Permanente</div>
+          <div class="pillar-desc">Substituição de dormentes, soldas, nivelamento, socaria e desguarnecimento de lastro. Operação em janelas restritas.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">05</div>
+          <div class="pillar-title">Material Rodante</div>
+          <div class="pillar-desc">Manutenção preventiva e corretiva de trens, motores, rodeiros, truques e ar-condicionado.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">05</span>
+    </div>
+  </div>
+
+  <!-- ════ 06 · TIMELINE MONTANHA ════ -->
+  <div class="slide-label">Slide 06 · Linha do Tempo (subida)</div>
+  <div class="slide slide-default slide-timeline">
+    <div class="slide-header">
+      <span class="slide-header-title">Linha do Tempo · 2009 a 2026</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">17 anos. Cada ano um degrau.</div>
+      <div class="slide-h1">Da fundação ao topo<br>da malha ferroviária.</div>
+      <div class="mountain-wrap">
+        <svg class="mountain-svg" viewBox="0 0 1200 380" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="mountainGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C8C8C8"/>
+              <stop offset="100%" stop-color="#8B1A1A"/>
+            </linearGradient>
+            <linearGradient id="mountainFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8B1A1A" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#8B1A1A" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 96,266 L 224,233 L 352,200 L 480,167 L 608,134 L 736,101 L 864,68 L 992,35 L 1120,2 L 1120,380 L 0,380 Z"
+                fill="url(#mountainFill)"/>
+          <path d="M 96,266 L 224,233 L 352,200 L 480,167 L 608,134 L 736,101 L 864,68 L 992,35 L 1120,2"
+                fill="none" stroke="url(#mountainGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="mountain-points">
+          <div class="mp" style="left: 8%; top: 70%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2009</div>
+            <div class="mp-event">Fundação. Primeiras parcerias ferroviárias.</div>
+          </div>
+          <div class="mp" style="left: 18.66%; top: 61.3%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2014</div>
+            <div class="mp-event">DAT, Piloto Automático e tração no MetrôRio. Início das obras das Olimpíadas.</div>
+          </div>
+          <div class="mp" style="left: 29.33%; top: 52.6%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2016</div>
+            <div class="mp-event">Olimpíadas RJ. Linha 4 entregue.</div>
+          </div>
+          <div class="mp" style="left: 40%; top: 43.9%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2019</div>
+            <div class="mp-event">Sinalização e adequação técnica nos pátios. Início da via permanente MetrôRio.</div>
+          </div>
+          <div class="mp" style="left: 50.66%; top: 35.2%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2021</div>
+            <div class="mp-event">Contrato direto Vale. Mãe Maria. Rede aérea e sinalização.</div>
+          </div>
+          <div class="mp" style="left: 61.33%; top: 26.5%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2022</div>
+            <div class="mp-event">Renovação da via permanente MetrôRio.</div>
+          </div>
+          <div class="mp" style="left: 72%; top: 17.8%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2024</div>
+            <div class="mp-event">Início das 32 PNs na EFVM.</div>
+          </div>
+          <div class="mp" style="left: 92%; top: 0.5%;">
+            <div class="mp-dot"></div>
+            <div class="mp-year">2026</div>
+            <div class="mp-event">Renovação das PNs na EFC. Frota expandida em 15 estados. Dobro de contratos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">06</span>
+    </div>
+  </div>
+
+  <!-- ════ 07 · SEÇÃO 01 SINALIZAÇÃO ════ -->
+  <div class="slide-label">Slide 07 · Seção 01 Sinalização</div>
+  <div class="slide slide-section">
+    <div class="section-bar"></div>
+    <div class="section-content">
+      <div class="section-pattern"></div>
+      <div class="section-eyebrow">Frente 01</div>
+      <div class="section-title">Sinalização</div>
+      <div class="section-subtitle">
+        Onde o trem precisa saber onde está, para onde vai e quando parar. Cabos, circuitos de via, automação de pátios e passagens de nível.
+      </div>
+      <div class="section-number">01</div>
+    </div>
+  </div>
+
+  <!-- ════ 08 · VALE Sinalização ════ -->
+  <div class="slide-label">Slide 08 · Vale Sinalização</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Vale</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">Vale · EFC</div>
+        <img src="images/s22-img040.jpg" alt="Vale Sinalização">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Cliente · VALE</div>
+        <div class="project-title">Sinalização<br>na Estrada de Ferro Carajás.</div>
+        <div class="project-tagline">Cabos e circuitos. Tudo o que faz o trem responder.</div>
+        <p class="project-desc">
+          Lançamento em larga escala de cabos de sinalização na EFC. Implantação de mais de duzentos circuitos de via. Operação direta no eixo de exportação do minério Vale.
+        </p>
+        <div class="big-stats">
+          <div>
+            <div class="big-stat-num">33<span class="big-stat-unit">km</span></div>
+            <div class="big-stat-label">Cabos de sinalização</div>
+          </div>
+          <div>
+            <div class="big-stat-num">200<span class="big-stat-unit">+</span></div>
+            <div class="big-stat-label">Circuitos de via</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">08</span>
+    </div>
+  </div>
+
+  <!-- ════ 09 · WABTEC 55 PN EFC ════ -->
+  <div class="slide-label">Slide 09 · Wabtec 55 PN EFC</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Wabtec e Vale</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">Wabtec · EFC</div>
+        <img src="images/s24-img044.jpg" alt="Wabtec 55 PN EFC">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Clientes · WABTEC e VALE</div>
+        <div class="project-title">55 Passagens de Nível<br>na EFC.</div>
+        <div class="project-tagline">Três frentes simultâneas. Sessenta operadores. Um cronograma.</div>
+        <p class="project-desc">
+          Implantação completa em três frentes simultâneas. Cada PN com abrigo. Trinta e sete racks remotos. Mais de duzentos quilômetros de cabos. Vinte e dois quilômetros de valetamento.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">55</div>
+            <div class="big-stat-label">Passagens de nível</div>
+          </div>
+          <div>
+            <div class="big-stat-num">200<span class="big-stat-unit">km</span></div>
+            <div class="big-stat-label">Cabos lançados</div>
+          </div>
+          <div>
+            <div class="big-stat-num">37</div>
+            <div class="big-stat-label">Racks remotos</div>
+          </div>
+        </div>
+        <div class="big-stats" style="margin-top: 14px; border-top: none; padding-top: 0;">
+          <div>
+            <div class="big-stat-num">22<span class="big-stat-unit">km</span></div>
+            <div class="big-stat-label">Valetamento</div>
+          </div>
+          <div>
+            <div class="big-stat-num">60<span class="big-stat-unit">+</span></div>
+            <div class="big-stat-label">Trabalhadores em campo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">09</span>
+    </div>
+  </div>
+
+  <!-- ════ 10 · WABTEC EFC galeria com pandemia ════ -->
+  <div class="slide-label">Slide 10 · Wabtec galeria EFC</div>
+  <div class="slide slide-default slide-gallery">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Wabtec e Vale · Operação em Campo</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Cronograma. Mantido.</div>
+      <div class="slide-h2">Mesmo com duas paralisações pela pandemia,<br>noventa dias ao todo, o cronograma permaneceu em dia.</div>
+      <p class="slide-p">
+        A operação não parou no que importa. Replanejamento, frente tripla e disciplina de execução entregaram a obra dentro do prazo combinado.
+      </p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/s25-img045.jpg" alt="Wabtec EFC operação">
+          <div class="gallery-caption">Frentes simultâneas. 60+ trabalhadores em campo.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s40-img058.jpg" alt="Adequação pátios Vale">
+          <div class="gallery-caption">Adequação de pátios Vale. Automação Wabtec.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s24-img044.jpg" alt="55 PN concluídas">
+          <div class="gallery-caption">Passagens de nível concluídas. EFC.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">10</span>
+    </div>
+  </div>
+
+  <!-- ════ 11 · FIPS e Rumo Outeirinhos ════ -->
+  <div class="slide-label">Slide 11 · NOVO · FIPS Rumo Porto Santos</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · FIPS e Rumo</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">FIPS · Rumo</div>
+        <div class="ph-mark">Foto a inserir<br>Terminal de Outeirinhos</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · FIPS / RUMO · Parceria Wabtec</div>
+        <div class="project-title">Sinalização do Terminal<br>de Outeirinhos.</div>
+        <div class="project-tagline">Porto de Santos. Um dos terminais mais movimentados do Brasil.</div>
+        <p class="project-desc">
+          Implantação de sinalização ferroviária no terminal portuário de Outeirinhos. Operação conjunta com Wabtec. Atendimento direto à malha de exportação da Rumo.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Extensão do trecho</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Circuitos de via</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Prazo de execução</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">11</span>
+    </div>
+  </div>
+
+  <!-- ════ 12 · Vale EFVM Adequação de Pátios c/ Wabtec ════ -->
+  <div class="slide-label">Slide 12 · Vale EFVM Pátios c/ Wabtec</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Vale EFVM · Pátios</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">Vale · EFVM</div>
+        <img src="images/s40-img058.jpg" alt="Adequação de pátios EFVM Wabtec">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Clientes · VALE e WABTEC</div>
+        <div class="project-title">Adequação de Pátios<br>na EFVM.</div>
+        <div class="project-tagline">Itabira e Ipatinga. Onde o minério ganha rota.</div>
+        <p class="project-desc">
+          Adequação de sinalização nos pátios Conceição, João Paulo e Intendente Câmara, localizados em Itabira e Ipatinga (MG). Projeto de automação Wabtec. Operação direta nos nós de manobra que sustentam o fluxo da Vitória a Minas.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">3</div>
+            <div class="big-stat-label">Pátios adequados</div>
+          </div>
+          <div>
+            <div class="big-stat-num">2</div>
+            <div class="big-stat-label">Cidades em MG</div>
+          </div>
+          <div>
+            <div class="big-stat-num">EFVM</div>
+            <div class="big-stat-label">Vitória a Minas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">12</span>
+    </div>
+  </div>
+
+  <!-- ════ 13 · EFVM 32 PNs ════ -->
+  <div class="slide-label">Slide 13 · NOVO · EFVM 32 PNs</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Vale EFVM</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">Vale · EFVM</div>
+        <div class="ph-mark">Foto a inserir<br>EFVM Vitória a Minas</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Clientes · VALE e WABTEC</div>
+        <div class="project-title">32 Passagens de Nível<br>na EFVM.</div>
+        <div class="project-tagline">Vitória a Minas. A coluna ferroviária do minério brasileiro.</div>
+        <p class="project-desc">
+          Implantação de trinta e duas passagens de nível ao longo da Estrada de Ferro Vitória a Minas. Continuação direta da experiência consolidada na EFC com Wabtec.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">32</div>
+            <div class="big-stat-label">Passagens de nível</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Cabos lançados</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Frentes simultâneas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">13</span>
+    </div>
+  </div>
+
+  <!-- ════ 13 · [NOVO] Vale PNs polímeros EFC c/ Wise ════ -->
+  <div class="slide-label">Slide 14 · NOVO · Vale PNs polímeros EFC Wise</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Sinalização · Vale EFC · Polímeros</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">Vale · EFC</div>
+        <div class="ph-mark">Foto a inserir<br>PNs de polímeros</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · VALE · Parceria Wise</div>
+        <div class="project-title">Passagens de Nível<br>de Polímeros na EFC.</div>
+        <div class="project-tagline">Material novo. Mesma exigência. Mesmo padrão Vale.</div>
+        <p class="project-desc">
+          Implantação de PNs com componentes em polímeros na Estrada de Ferro Carajás. Operação conjunta com Wise. Adoção de tecnologia mais leve e durável para travessias rodoviárias.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">PNs em polímero</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Trecho EFC</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Prazo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">14</span>
+    </div>
+  </div>
+
+  <!-- ════ 14 · VALE SAÚDE & SEGURANÇA ════ -->
+  <div class="slide-label">Slide 15 · Vale Saúde, Segurança e Conduta</div>
+  <div class="slide slide-default">
+    <div class="slide-header">
+      <span class="slide-header-title">Vale · Saúde, Segurança e Conduta</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Padrão Vale. Auditoria aprovada.</div>
+      <div class="slide-h1">Auditoria superada.<br>Conduta certificada.</div>
+      <p class="slide-lead">
+        Dentro da Vale, segurança não é cláusula. É filtro. Quem não passa, não opera. A J Queiroz passa, opera e é convidada a continuar.
+      </p>
+      <span class="placeholder-tag" style="margin-bottom: 20px;">A confirmar · 1º lugar em segurança Vale por 2 anos consecutivos</span>
+      <div class="ss-grid">
+        <div class="ss-card red">
+          <div class="ss-num">100<small>%</small></div>
+          <div class="ss-label">Engajamento de ROS</div>
+          <div class="ss-desc">Aderência integral em todos os meses do ciclo de auditoria Vale.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">96<small>%</small></div>
+          <div class="ss-label">Auditoria de RAC</div>
+          <div class="ss-desc">Aderência média ao longo do ciclo. Meta Vale: 90%. Resultado: 95,84% a 96,68%.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">95<small>%</small></div>
+          <div class="ss-label">Auditoria de NR</div>
+          <div class="ss-desc">Atividades Críticas. Meta 90%. Resultado: 93,63% a 97,03% no período.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">+</div>
+          <div class="ss-label">Sustentabilidade</div>
+          <div class="ss-desc">Canteiros de obras com painéis solares. Indicadores proativos de saúde e meio ambiente.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">15</span>
+    </div>
+  </div>
+
+  <!-- ════ 20 · SEÇÃO 03 ENERGIA ════ -->
+  <div class="slide-label">Slide 16 · Seção 02 Energia</div>
+  <div class="slide slide-section">
+    <div class="section-bar"></div>
+    <div class="section-content">
+      <div class="section-pattern"></div>
+      <div class="section-eyebrow">Frente 02</div>
+      <div class="section-title">Energia e<br>Rede Aérea</div>
+      <div class="section-subtitle">
+        Sem energia, ferrovia não anda. Rede aérea de média e alta tensão, subestações e reativos para os maiores operadores do país.
+      </div>
+      <div class="section-number">02</div>
+    </div>
+  </div>
+
+  <!-- ════ 21 · VALE Mãe Maria 13kV ════ -->
+  <div class="slide-label">Slide 17 · Vale Mãe Maria 13kV</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Energia · Vale</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">Vale · Pará</div>
+        <img src="images/s16-img032.jpg" alt="Vale Mãe Maria 13kV" style="object-position: center center;">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Cliente · VALE</div>
+        <div class="project-title">Rede Aérea 13kV<br>Mãe Maria.</div>
+        <div class="project-tagline">Energização integral. 190 postes. Mais de 10 km de cabos.</div>
+        <p class="project-desc">
+          Implantação completa de rede aérea de média tensão na EFC. Estrutura de energização integral. Lançamento de cabos em extensão superior a dez quilômetros.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">190</div>
+            <div class="big-stat-label">Postes instalados</div>
+          </div>
+          <div>
+            <div class="big-stat-num">10<span class="big-stat-unit">km+</span></div>
+            <div class="big-stat-label">Cabos lançados</div>
+          </div>
+          <div>
+            <div class="big-stat-num">13<span class="big-stat-unit">kV</span></div>
+            <div class="big-stat-label">Média tensão</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">17</span>
+    </div>
+  </div>
+
+  <!-- ════ 22 · METRÔRIO Subestações ════ -->
+  <div class="slide-label">Slide 18 · MetrôRio Subestações</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Energia · MetrôRio</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">MetrôRio · 145kV</div>
+        <img src="images/s44-img063.jpg" alt="Subestação Colégio MetrôRio">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Cliente · METRÔRIO</div>
+        <div class="project-title">Subestações de<br>Alta Tensão.</div>
+        <div class="project-tagline">Disjuntor de 145kV. Três pátios. Tratamento de tração.</div>
+        <p class="project-desc">
+          Substituição do disjuntor de 145 kV na subestação de Colégio. Atuação na subestação de Cidade Nova. Ruptores de emergência nos pátios Norte, Leste e Oeste do Centro de Manutenção. Tratamento de tração no pátio Norte e estação Uruguai.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">145<span class="big-stat-unit">kV</span></div>
+            <div class="big-stat-label">Disjuntor SE Colégio</div>
+          </div>
+          <div>
+            <div class="big-stat-num">3</div>
+            <div class="big-stat-label">Pátios atendidos</div>
+          </div>
+          <div>
+            <div class="big-stat-num">2</div>
+            <div class="big-stat-label">Subestações</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">18</span>
+    </div>
+  </div>
+
+  <!-- ════ 23 · [NOVO] Siemens L8 e L9 SP Rede Aérea ════ -->
+  <div class="slide-label">Slide 19 · NOVO · Siemens L8 L9 SP</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Energia · Siemens · São Paulo</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">Siemens · SP</div>
+        <div class="ph-mark">Foto a inserir<br>Linhas 8 e 9 São Paulo</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · SIEMENS · São Paulo</div>
+        <div class="project-title">Rede Aérea<br>Linhas 8 e 9.</div>
+        <div class="project-tagline">Duas das linhas mais movimentadas da CPTM, em parceria com a Siemens.</div>
+        <p class="project-desc">
+          Sistema de rede aérea para as Linhas 8 e 9 de São Paulo, em projeto Siemens. Continuação direta da relação consolidada na L4 RJ olímpica e nas estações de telecom Higienópolis e Oscar Freire.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">2</div>
+            <div class="big-stat-label">Linhas atendidas</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Quilômetros de rede</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Prazo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">19</span>
+    </div>
+  </div>
+
+  <!-- ════ 24 · [NOVO] VLT Terminal Gentileza TIG ════ -->
+  <div class="slide-label">Slide 20 · NOVO · VLT Terminal Gentileza TIG</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Energia · VLT Carioca</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">VLT · TIG</div>
+        <div class="ph-mark">Foto a inserir<br>Terminal Intermodal Gentileza</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · VLT CARIOCA</div>
+        <div class="project-title">Terminal Gentileza TIG.<br>Energização.</div>
+        <div class="project-tagline">A nova porta de entrada do VLT no Centro do Rio.</div>
+        <p class="project-desc">
+          Projeto e instalação de energização do Terminal Intermodal Gentileza, integrado à malha do VLT Carioca. Continuação da operação iniciada no túnel da Providência (L190).
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Carga instalada</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Posições energizadas</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Prazo de execução</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">20</span>
+    </div>
+  </div>
+
+  <!-- ════ 25 · [NOVO] SuperVia Manutenção Elétrica ════ -->
+  <div class="slide-label">Slide 21 · NOVO · SuperVia Manutenção Elétrica</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Energia · SuperVia</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">SuperVia · RJ</div>
+        <div class="ph-mark">Foto a inserir<br>Manutenção elétrica SuperVia</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · SUPERVIA</div>
+        <div class="project-title">Manutenção<br>Elétrica.</div>
+        <div class="project-tagline">Energia, sinalização e equipamentos de tração da SuperVia.</div>
+        <p class="project-desc">
+          Manutenção elétrica nos ramais da SuperVia. Atuação em sistemas de energização, alimentação dos trens urbanos e equipamentos de campo do operador metropolitano do Rio.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Subestações atendidas</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Equipamentos</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Vigência</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">21</span>
+    </div>
+  </div>
+
+  <!-- ════ 15 · SEÇÃO 02 VIA PERMANENTE ════ -->
+  <div class="slide-label">Slide 22 · Seção 03 Via Permanente</div>
+  <div class="slide slide-section">
+    <div class="section-bar"></div>
+    <div class="section-content">
+      <div class="section-pattern"></div>
+      <div class="section-eyebrow">Frente 03</div>
+      <div class="section-title">Via<br>Permanente</div>
+      <div class="section-subtitle">
+        Dormente, lastro, solda, fixação. O que sustenta o trem. Operação em janela de 1h30 por dia, sem espaço para ajustes.
+      </div>
+      <div class="section-number">03</div>
+    </div>
+  </div>
+
+  <!-- ════ 16 · METRÔRIO Via Permanente ════ -->
+  <div class="slide-label">Slide 23 · MetrôRio Via Permanente</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Via Permanente · MetrôRio</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media">
+        <div class="project-media-tag">MetrôRio · Linha 2</div>
+        <img src="images/s30-img050.jpg" alt="MetrôRio Via Permanente">
+      </div>
+      <div class="project-content">
+        <div class="project-client">Cliente · METRÔRIO</div>
+        <div class="project-title">Manutenção de<br>Via Permanente.</div>
+        <div class="project-tagline">Em janela de 1h30 por dia. Todos os dias.</div>
+        <p class="project-desc">
+          Manutenção de via permanente em todas as linhas do MetrôRio. Em doze meses, mais de 3.700 m³ de brita substituídos só na Linha 2. Equipamentos próprios. Procedimentos otimizados durante o contrato.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">3.700<span class="big-stat-unit">m³</span></div>
+            <div class="big-stat-label">Brita substituída</div>
+          </div>
+          <div>
+            <div class="big-stat-num">1.707</div>
+            <div class="big-stat-label">Dormentes</div>
+          </div>
+          <div>
+            <div class="big-stat-num">38<span class="big-stat-unit">k</span></div>
+            <div class="big-stat-label">Fixações trocadas</div>
+          </div>
+        </div>
+        <div class="big-stats" style="margin-top: 14px; border-top: none; padding-top: 0;">
+          <div>
+            <div class="big-stat-num">262</div>
+            <div class="big-stat-label">Soldas executadas</div>
+          </div>
+          <div>
+            <div class="big-stat-num">1h30</div>
+            <div class="big-stat-label">Janela diária de trabalho</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">23</span>
+    </div>
+  </div>
+
+  <!-- ════ 17 · METRÔRIO Solda & Lastro Galeria ════ -->
+  <div class="slide-label">Slide 24 · MetrôRio Solda Lastro</div>
+  <div class="slide slide-default slide-gallery">
+    <div class="slide-header">
+      <span class="slide-header-title">Via Permanente · MetrôRio · Operação</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Frota dedicada. Procedimentos próprios.</div>
+      <div class="slide-h2">Solda. Nivelamento. Lastro.<br>Tudo na mesma janela noturna.</div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/s31-img051.jpg" alt="Solda de trilhos">
+          <div class="gallery-caption">Solda de trilhos. MetrôRio.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s33-img052.jpg" alt="Nivelamento e socaria">
+          <div class="gallery-caption">Nivelamento e socaria de lastro.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s34-img053.jpg" alt="Desguarnecimento">
+          <div class="gallery-caption">Desguarnecimento de lastro. Linha 2.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">24</span>
+    </div>
+  </div>
+
+  <!-- ════ 18 · [NOVO] MetrôRio Renovação Triplo ════ -->
+  <div class="slide-label">Slide 25 · NOVO · MetrôRio Renovação 3x</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Via Permanente · MetrôRio · Renovação</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">MetrôRio · Renovação</div>
+        <div class="ph-mark">Foto a inserir<br>Operação atual</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Atualizar com números 2025/2026</span>
+        <div class="project-client">Cliente · METRÔRIO</div>
+        <div class="project-title">Contrato Renovado.<br>Triplo da produção.</div>
+        <div class="project-tagline">Quando o cliente confia, ele pede o triplo.</div>
+        <p class="project-desc">
+          O MetrôRio renovou o contrato de manutenção de via permanente para o triplo da produção anterior, pelos próximos 36 meses. Mobilização ampliada. Frota dedicada reforçada.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">3<span class="big-stat-unit">×</span></div>
+            <div class="big-stat-label">Volume de produção</div>
+          </div>
+          <div>
+            <div class="big-stat-num">36<span class="big-stat-unit">m</span></div>
+            <div class="big-stat-label">Duração do contrato</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Equipamentos novos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">25</span>
+    </div>
+  </div>
+
+  <!-- ════ 19 · [NOVO] SuperVia Via Permanente ════ -->
+  <div class="slide-label">Slide 26 · NOVO · SuperVia Via Permanente</div>
+  <div class="slide slide-project">
+    <div class="slide-header">
+      <span class="slide-header-title">Via Permanente · SuperVia</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="project-body">
+      <div class="project-media placeholder">
+        <div class="project-media-tag">SuperVia · RJ</div>
+        <div class="ph-mark">Foto a inserir<br>SuperVia trens urbanos</div>
+      </div>
+      <div class="project-content">
+        <span class="placeholder-tag">Em produção · aguardando dados</span>
+        <div class="project-client">Cliente · SUPERVIA</div>
+        <div class="project-title">Manutenção de<br>Via Permanente.</div>
+        <div class="project-tagline">Trens urbanos do Rio. Centenas de milhares de passageiros por dia.</div>
+        <p class="project-desc">
+          Manutenção de via permanente nos ramais da SuperVia. Operação contínua para garantir disponibilidade dos trens urbanos da região metropolitana do Rio de Janeiro.
+        </p>
+        <div class="big-stats three">
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Quilômetros de via</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Ramais atendidos</div>
+          </div>
+          <div>
+            <div class="big-stat-num">__</div>
+            <div class="big-stat-label">Vigência do contrato</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">26</span>
+    </div>
+  </div>
+
+  <!-- ════ 26 · SEÇÃO 04 TELECOM/PÁTIOS/MAT RODANTE ════ -->
+  <div class="slide-label">Slide 27 · Seção 04 Telecom Pátios Material Rodante</div>
+  <div class="slide slide-section">
+    <div class="section-bar"></div>
+    <div class="section-content">
+      <div class="section-pattern"></div>
+      <div class="section-eyebrow">Frentes 04 e 05</div>
+      <div class="section-title">Telecom, Pátios<br>e Material Rodante</div>
+      <div class="section-subtitle">
+        Da estação ao truque do trem. Telecom em metrô, automação de pátios, tratamento de tração e manutenção de material rodante.
+      </div>
+      <div class="section-number">04</div>
+    </div>
+  </div>
+
+  <!-- ════ 27 · L4 RJ + Siemens SP + Alstom ════ -->
+  <div class="slide-label">Slide 28 · L4 RJ Siemens SP Alstom</div>
+  <div class="slide slide-default slide-gallery">
+    <div class="slide-header">
+      <span class="slide-header-title">Telecom e Pátios · L4 RJ · Siemens SP · Alstom</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Integração com fabricantes globais</div>
+      <div class="slide-h2">Linha 4 olímpica. Telecom em SP.<br>Sinalização Alstom em 45 dias.</div>
+      <p class="slide-p">
+        Para os Jogos Olímpicos 2016, fornecemos o Sistema de Comando D.A.T. da L4 RJ, equivalente a 35 km de extensão em projeto Siemens. Para a Siemens SP, a infraestrutura de telecom das estações Higienópolis e Oscar Freire. Para o consórcio Alstom/Siener, o trecho de sinalização em Antero de Quental concluído em 45 dias ininterruptos.
+      </p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/s43-img062.jpg" alt="L4 MetrôRio">
+          <div class="gallery-caption">L4 MetrôRio. Sistema de Comando D.A.T. Siemens.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s51-img070.jpg" alt="Siemens Higienópolis">
+          <div class="gallery-caption">Siemens SP. Telecom estação Higienópolis.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s48-img067.jpg" alt="Alstom Antero de Quental">
+          <div class="gallery-caption">Alstom. L4 Antero de Quental. 45 dias ininterruptos.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">28</span>
+    </div>
+  </div>
+
+  <!-- ════ 28 · MRS / VLT / Nitriflex ════ -->
+  <div class="slide-label">Slide 29 · MRS VLT Nitriflex</div>
+  <div class="slide slide-default slide-gallery">
+    <div class="slide-header">
+      <span class="slide-header-title">Material Rodante e Apoio · MRS · VLT · Nitriflex</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Operação em três frentes adicionais</div>
+      <div class="slide-h2">Manutenção de trens. Segurança em túnel.<br>Subestação industrial.</div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/s53-img072.jpg" alt="MRS Logística">
+          <div class="gallery-caption">MRS Logística. Manutenção HVAC dos trens. MG e RJ.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s54-img073.jpg" alt="VLT Carioca">
+          <div class="gallery-caption">VLT Carioca. Sistemas de segurança túnel da Providência. L190.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s55-img074.jpg" alt="SuperVia material rodante">
+          <div class="gallery-caption">SuperVia. Manutenção preventiva de material rodante.</div>
+        </div>
+      </div>
+      <p class="slide-p" style="margin-top: 20px;">
+        <strong>Nitriflex (próximo à Reduc):</strong> Lançamento de cabos e testes da subestação 13,8 kV. Integração à malha industrial de gás e produtos químicos.
+      </p>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">29</span>
+    </div>
+  </div>
+
+  <!-- ════ 29 · FROTA ════ -->
+  <div class="slide-label">Slide 30 · Frota</div>
+  <div class="slide slide-default slide-gallery">
+    <div class="slide-header">
+      <span class="slide-header-title">Frota Ferroviária Própria</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Mobilização imediata</div>
+      <div class="slide-h2">Equipamentos próprios.<br>Disponibilidade em janelas curtas.</div>
+      <span class="placeholder-tag" style="margin-top: 4px;">Atualizar contagem total da frota 2026</span>
+      <p class="slide-p">
+        Frota especializada para operar em janelas de manutenção restritas. Caminhões rodoferroviários com munck. Retroescavadeiras com rototilt. Equipamentos para substituição de dormentes. Mobilização em todo o território nacional.
+      </p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/s36-img054.jpg" alt="Caminhão rodoferroviário com munck">
+          <div class="gallery-caption">Caminhão rodoferroviário com munck.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s37-img055.jpg" alt="Retroescavadeira com rototilt">
+          <div class="gallery-caption">Retroescavadeira com rototilt.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/s39-img057.jpg" alt="Substituição de dormentes">
+          <div class="gallery-caption">Retroescavadeira para substituição de dormentes.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">30</span>
+    </div>
+  </div>
+
+  <!-- ════ 30 · POR QUE J QUEIROZ ════ -->
+  <div class="slide-label">Slide 31 · Por que J Queiroz</div>
+  <div class="slide slide-default">
+    <div class="slide-header">
+      <span class="slide-header-title">Por que J Queiroz</span>
+      <span class="slide-header-brand">J Queiroz</span>
+    </div>
+    <div class="slide-body">
+      <div class="slide-section-tag">Diferenciais consolidados</div>
+      <div class="slide-h1">Precisão técnica.<br>Robustez operacional.</div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Track record</div>
+          <div class="pillar-desc">17 anos atuando junto aos maiores operadores e fabricantes do Brasil. Vale, Wabtec, Siemens, Alstom, MetrôRio, MRS, SuperVia, VLT.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Frota própria</div>
+          <div class="pillar-desc">Equipamentos rodoferroviários, retroescavadeiras com rototilt e caminhões munck dedicados. Mobilização imediata em todo o território nacional.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Janela de 1h30</div>
+          <div class="pillar-desc">Capacidade comprovada de executar em janelas restritas. MetrôRio renovou contrato para 3× a produção pelos próximos 36 meses.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <div class="pillar-title">Acidente zero</div>
+          <div class="pillar-desc">Auditoria Vale aprovada em RAC e Atividades Críticas com meta superior a 80%. Padrão de saúde e segurança como referência nacional.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">05</div>
+          <div class="pillar-title">Resiliência</div>
+          <div class="pillar-desc">Cronograma Wabtec mantido em dia mesmo com 90 dias de paralisação na pandemia. Capacidade de replanejamento e execução sob pressão.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="slide-footer-brand">J QUEIROZ</span>
+      <div class="slide-footer-line"></div>
+      <span class="slide-footer-page">31</span>
+    </div>
+  </div>
+
+  <!-- ════ 31 · ENCERRAMENTO ════ -->
+  <div class="slide-label">Slide 32 · Encerramento</div>
+  <div class="slide slide-close">
+    <div class="close-left">
+      <div class="close-title">
+        Vamos<br>conversar.
+      </div>
+      <div class="close-sub">
+        Projetos como estes impactam a vida da população brasileira. Da qual fazemos parte. A quem temos orgulho em servir. Estamos à disposição para detalhar qualquer um dos contratos apresentados.
+      </div>
+      <div class="close-contacts">
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text" style="font-weight:600; color:rgba(255,255,255,0.95);">Natã Gomes · Comercial</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text">nata@jqueiroz.net</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text">comercial@jqueiroz.net</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text">Ligação: (21) 99725-3070</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text">WhatsApp: (11) 5199-9787</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot"></div>
+          <span class="contact-text">jqueiroz.net</span>
+        </div>
+      </div>
+    </div>
+    <div class="close-right">
+      <div class="close-logo-big">J<br>QRZ</div>
+      <div class="close-bar"></div>
+      <div class="close-logo-sub">Engenharia<br>Ferroviária</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ── IntersectionObserver: anima slides ao entrar no viewport ── */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.slide').forEach(s => obs.observe(s));
+
+  /* ── Responsive scaling: escala cada slide proporcionalmente ao viewport ──
+     Os slides têm canvas fixo de 1280×720px. Em vez de reconstruir o layout,
+     aplica transform:scale() para que tudo caiba na tela sem quebrar nada.
+     O wrapper .slide-wrap ajusta sua própria altura para ocupar o espaço certo
+     no fluxo do documento (transform não afeta layout flow). ── */
+  const SLIDE_W = 1280;
+  const SLIDE_H = 720;
+
+  function scaleSlides() {
+    const vw = Math.min(window.innerWidth, document.documentElement.clientWidth);
+    const scale = Math.min(vw / SLIDE_W, 1); // nunca ampliar além de 100%
+    document.querySelectorAll('.slide-wrap').forEach(wrap => {
+      const slide = wrap.querySelector('.slide');
+      slide.style.transform = `scale(${scale})`;
+      slide.style.transformOrigin = 'top center';
+      // Ajusta a altura do wrapper: transform não ocupa espaço no layout, então forçamos
+      wrap.style.height = (SLIDE_H * scale) + 'px';
+    });
+  }
+
+  // Envolve cada slide num wrapper dedicado (só o slide, sem o label)
+  document.querySelectorAll('.slide').forEach(slide => {
+    if (slide.parentElement.classList.contains('slide-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'slide-wrap';
+    wrap.style.cssText = 'width:100%; overflow:visible; display:flex; justify-content:center;';
+    slide.parentNode.insertBefore(wrap, slide);
+    wrap.appendChild(slide);
+  });
+
+  scaleSlides();
+  window.addEventListener('resize', scaleSlides);
+</script>
+</body>
+</html>
