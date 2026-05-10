@@ -105,37 +105,44 @@
   }
   .cover-right {
     width: 42%; background: var(--green-dark);
-    display: flex; flex-direction: column; justify-content: flex-end;
+    display: flex; flex-direction: column; justify-content: center;
     padding: 0; position: relative;
   }
   .cover-right-pattern {
-    position: absolute; inset: 0; opacity: 0.07;
-    background-image:
-      repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 32px),
-      repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 32px);
+    position: absolute; inset: 0; pointer-events: none;
   }
-  .cover-right-content { padding: 56px 48px 64px; position: relative; }
-  .cover-clients-label {
-    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4); margin-bottom: 24px;
+  .cover-right-pattern svg { width: 100%; height: 100%; display: block; }
+  .cover-right-content {
+    padding: 56px 48px 64px; position: relative;
+    display: flex; flex-direction: column; gap: 24px;
   }
-  .cover-clients { display: flex; flex-direction: column; gap: 12px; }
-  .client-item {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700;
-    color: var(--white); letter-spacing: 0.02em;
-    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.12);
-    opacity: 0; transform: translateX(-12px);
+  .frente-stack {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    opacity: 0; transform: translateY(8px);
     transition: opacity .6s var(--ease-soft), transform .6s var(--ease-soft);
   }
-  .slide.in-view .client-item { opacity: 1; transform: translateX(0); }
-  .slide.in-view .client-item:nth-child(1) { transition-delay: .3s; }
-  .slide.in-view .client-item:nth-child(2) { transition-delay: .4s; }
-  .slide.in-view .client-item:nth-child(3) { transition-delay: .5s; }
-  .slide.in-view .client-item:nth-child(4) { transition-delay: .6s; }
-  .slide.in-view .client-item:nth-child(5) { transition-delay: .7s; }
-  .slide.in-view .client-item:nth-child(6) { transition-delay: .8s; }
-  .client-item:last-child { border-bottom: none; }
+  .frente-stack:last-child { border-bottom: none; padding-bottom: 0; }
+  .slide.in-view .frente-stack { opacity: 1; transform: translateY(0); }
+  .slide.in-view .frente-stack:nth-child(1) { transition-delay: .3s; }
+  .slide.in-view .frente-stack:nth-child(2) { transition-delay: .5s; }
+  .slide.in-view .frente-stack:nth-child(3) { transition-delay: .7s; }
+  .frente-stack-icon {
+    width: 70px; height: 70px;
+    margin: 0 auto 10px;
+    color: var(--white);
+  }
+  .frente-stack-icon svg { width: 100%; height: 100%; display: block; }
+  .frente-name {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700;
+    line-height: 1.05; color: var(--white);
+    text-transform: uppercase; letter-spacing: 0.01em;
+  }
+  .frente-tag {
+    font-family: 'Inter', sans-serif; font-size: 11px;
+    color: rgba(255,255,255,0.55); margin-top: 6px; line-height: 1.4;
+  }
 
   /* =========================================================
      DEFAULT (header + body + footer)
@@ -210,6 +217,39 @@
   }
   .quem-card.alt .quem-list li::before { background: var(--green-dark); }
 
+  /* Slide 02 · ícones temáticos (clock + calendar-check + hard-hat) */
+  .quem-icons {
+    display: flex; justify-content: center; align-items: center; gap: 56px;
+    margin: 6px 0 14px;
+  }
+  .quem-icon {
+    display: inline-flex; color: var(--red-mid); opacity: 0.7;
+    animation: quem-pulse 3.4s ease-in-out infinite;
+  }
+  .quem-icon:nth-child(2) { animation-delay: 0.4s; }
+  .quem-icon:nth-child(3) { animation-delay: 0.8s; }
+  @keyframes quem-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.06); }
+  }
+
+  /* Slide 02 · entrada sequencial nos itens das listas */
+  .quem-list li {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .55s var(--ease-soft), transform .55s var(--ease-soft);
+  }
+  .slide.in-view .quem-list li { opacity: 1; transform: translateY(0); }
+  .slide.in-view .quem-card     .quem-list li:nth-child(1) { transition-delay: .20s; }
+  .slide.in-view .quem-card     .quem-list li:nth-child(2) { transition-delay: .32s; }
+  .slide.in-view .quem-card     .quem-list li:nth-child(3) { transition-delay: .45s; }
+  .slide.in-view .quem-card     .quem-list li:nth-child(4) { transition-delay: .58s; }
+  .slide.in-view .quem-card     .quem-list li:nth-child(5) { transition-delay: .70s; }
+  .slide.in-view .quem-card.alt .quem-list li:nth-child(1) { transition-delay: .40s; }
+  .slide.in-view .quem-card.alt .quem-list li:nth-child(2) { transition-delay: .52s; }
+  .slide.in-view .quem-card.alt .quem-list li:nth-child(3) { transition-delay: .65s; }
+  .slide.in-view .quem-card.alt .quem-list li:nth-child(4) { transition-delay: .78s; }
+  .slide.in-view .quem-card.alt .quem-list li:nth-child(5) { transition-delay: .90s; }
+
   /* ── Slide 03 · Client cards ── */
   .clients-grid-flip {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
@@ -277,6 +317,8 @@
     font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 800;
     color: var(--red-deep); line-height: 1; letter-spacing: -0.02em;
   }
+  .slide-kpi .kpi-grid .kpi-card:nth-child(even) .kpi-number { color: var(--red-mid); }
+  .slide-kpi .kpi-grid .kpi-card:nth-child(even) .kpi-unit   { color: var(--red-deep); }
   .kpi-unit {
     font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 600;
     color: var(--red-mid);
@@ -301,10 +343,9 @@
     padding: 80px 88px; position: relative;
   }
   .section-pattern {
-    position: absolute; inset: 0; opacity: 0.05;
-    background-image: repeating-linear-gradient(45deg, #fff 0 1px, transparent 1px 32px);
-    pointer-events: none;
+    position: absolute; inset: 0; pointer-events: none;
   }
+  .section-pattern svg { width: 100%; height: 100%; display: block; }
   .section-content::before {
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 60% at 28% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 72%);
@@ -423,7 +464,7 @@
     margin-top: 16px;
     position: relative;
     width: 100%;
-    height: 380px;
+    height: 400px;
   }
   .mountain-svg {
     position: absolute; inset: 0;
@@ -459,6 +500,21 @@
     color: var(--gray-dark); line-height: 1.4; margin-top: 4px;
     max-width: 130px;
   }
+  /* 2026 fica perto da borda direita do wrap; ganha mais largura para
+     quebrar em 2 linhas largas em vez de 7 estreitas. Width explícito
+     no .mp pai contorna o shrink-to-fit do absolute (left:89% / right:auto
+     limita a largura disponível a ~11% do wrap = ~127px). */
+  .mp-2026 { width: 180px; }
+  .mp-2026 .mp-event { max-width: 180px; }
+  /* Zigzag: marcos ímpares (1,3,5,7) com texto ACIMA do dot;
+     pares (2,4,6,8) mantêm texto abaixo. Dot ancora no top:% via translate. */
+  .mp:nth-child(odd) {
+    flex-direction: column-reverse;
+    margin-top: 0;
+    transform: translate(-50%, calc(-100% + 9px));
+  }
+  .mp:nth-child(odd) .mp-year  { margin-top: 0; margin-bottom: 8px; }
+  .mp:nth-child(odd) .mp-event { margin-top: 0; margin-bottom: 4px; }
   .slide.in-view .mp:nth-child(1) .mp-dot { transition-delay: .4s; }
   .slide.in-view .mp:nth-child(2) .mp-dot { transition-delay: .7s; }
   .slide.in-view .mp:nth-child(3) .mp-dot { transition-delay: 1.0s; }
@@ -541,6 +597,17 @@
   .ss-desc {
     font-family: 'Inter', sans-serif; font-size: 13px;
     color: rgba(255,255,255,0.85); line-height: 1.5; margin-top: 8px;
+  }
+
+  /* Slide 15 · h1 + ícone shield-check */
+  .slide-h1-icon-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px; margin-bottom: 18px;
+  }
+  .slide-h1-icon-row .slide-h1 { margin-bottom: 0; }
+  .ss-icon {
+    display: inline-flex; flex-shrink: 0;
+    color: var(--red-deep); opacity: 0.85;
   }
 
   /* =========================================================
@@ -634,8 +701,9 @@
     .cover-meta { font-size: clamp(12px, 2.4vw, 13px); }
     .cover-right { width: 100%; }
     .cover-right-content { padding: clamp(40px, 7vw, 56px) clamp(24px, 6vw, 48px) clamp(48px, 8vw, 64px); }
-    .client-item { font-size: clamp(20px, 4vw, 26px); }
-    /* Manter animação translateX dos client-items — funciona em qualquer tamanho */
+    .frente-name { font-size: clamp(22px, 4.5vw, 28px); }
+    .frente-tag  { font-size: clamp(11px, 2.4vw, 13px); }
+    .frente-stack-icon { width: clamp(56px, 12vw, 76px); height: clamp(56px, 12vw, 76px); }
 
     /* ── Default header / body / footer ── */
     .slide-header {
@@ -723,10 +791,87 @@
       padding: clamp(20px, 4vw, 32px) clamp(10px, 2vw, 16px) clamp(10px, 2vw, 14px);
     }
 
-    /* ── Timeline ── */
-    .mountain-wrap { height: clamp(280px, 60vw, 380px); }
-    .mp-year { font-size: clamp(18px, 3.5vw, 24px); }
-    .mp-event { font-size: clamp(10px, 2vw, 11.5px); max-width: clamp(90px, 18vw, 130px); }
+    /* ── Timeline (mobile · vertical top-down) ──
+       Substitui o SVG mountain horizontal por uma timeline cronológica vertical.
+       Linha vermelha à esquerda como rail; cada marco é uma linha (dot · ano · descrição).
+       Dots animam individualmente quando entram no viewport (JS observa cada .mp). */
+    .slide-timeline .mountain-wrap {
+      height: auto;
+      margin-top: clamp(16px, 4vw, 24px);
+      padding: clamp(8px, 2vw, 12px) 0 clamp(8px, 2vw, 12px) clamp(20px, 5vw, 32px);
+    }
+    .slide-timeline .mountain-svg { display: none; }
+    .slide-timeline .mountain-points {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 4.5vw, 28px);
+    }
+    .slide-timeline .mountain-points::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--red-deep);
+      opacity: 0.35;
+    }
+    .slide-timeline .mp,
+    .slide-timeline .mp:nth-child(odd) {
+      position: relative;
+      inset: auto;
+      left: 0 !important;
+      top: 0 !important;
+      transform: none !important;
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: clamp(14px, 3vw, 18px);
+      row-gap: clamp(2px, 0.6vw, 4px);
+      flex-direction: row;
+      text-align: left;
+      align-items: start;
+    }
+    .slide-timeline .mp .mp-dot {
+      grid-column: 1; grid-row: 1 / span 2;
+      align-self: start;
+      margin-top: clamp(4px, 1.2vw, 6px);
+      z-index: 1;
+    }
+    .slide-timeline .mp .mp-year,
+    .slide-timeline .mp:nth-child(odd) .mp-year {
+      grid-column: 2; grid-row: 1;
+      margin: 0;
+      font-size: clamp(20px, 4.5vw, 26px);
+      line-height: 1;
+      text-align: left;
+    }
+    .slide-timeline .mp .mp-event,
+    .slide-timeline .mp:nth-child(odd) .mp-event {
+      grid-column: 2; grid-row: 2;
+      margin: 0;
+      max-width: none;
+      text-align: left;
+      font-size: clamp(13px, 2.9vw, 14.5px);
+      line-height: 1.5;
+    }
+    /* Animação por-marco no mobile: dots só animam quando o próprio .mp entra no
+       viewport (não em massa quando o slide vira .in-view). JS adiciona a classe.
+       IMPORTANTE: .slide-timeline e .slide vivem no mesmo elemento (a .slide tem
+       ambas as classes), então os seletores usam .slide-timeline.slide.in-view
+       SEM espaço — descendant combinator nunca casaria. */
+    .slide-timeline.slide.in-view .mp .mp-dot {
+      transform: scale(0);
+      transition-delay: 0s !important;
+    }
+    .slide-timeline.slide.in-view .mp.mp-in-view .mp-dot {
+      transform: scale(1);
+      transition-delay: 0s !important;
+    }
 
     /* ── Pillars ── */
     .pillars {
@@ -743,6 +888,11 @@
     .ss-card { padding: clamp(20px, 4vw, 28px) clamp(18px, 3.5vw, 24px); }
     .ss-num { font-size: clamp(40px, 9vw, 56px); }
     .ss-num small { font-size: clamp(18px, 4vw, 24px); }
+    .ss-icon svg { width: clamp(40px, 8vw, 56px); height: clamp(40px, 8vw, 56px); }
+
+    /* ── Quem somos · ícones ── */
+    .quem-icons { gap: clamp(28px, 8vw, 56px); }
+    .quem-icon svg { width: clamp(26px, 5vw, 32px); height: clamp(26px, 5vw, 32px); }
 
     /* ── Close ── */
     .slide-close { flex-direction: column; }
@@ -817,7 +967,7 @@
     .slide *, .slide *::before, .slide *::after {
       transition: none !important; animation: none !important;
     }
-    .client-item, .mp .mp-dot, .client-card { opacity: 1 !important; transform: none !important; }
+    .frente-stack, .mp .mp-dot, .client-card, .quem-list li { opacity: 1 !important; transform: none !important; }
     .slide.in-view .mp .mp-dot { transform: scale(1) !important; }
     .project-media img { transform: none !important; }
   }
@@ -832,7 +982,7 @@
       animation-iteration-count: 1 !important;
     }
     .slide { opacity: 1 !important; transform: none !important; }
-    .client-item, .client-card, .mp .mp-dot { opacity: 1 !important; transform: none !important; }
+    .frente-stack, .client-card, .mp .mp-dot, .quem-list li { opacity: 1 !important; transform: none !important; }
     .slide.in-view .mp .mp-dot { transform: scale(1) !important; }
     .project-media img { transform: none !important; }
   }
@@ -854,6 +1004,33 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.slide').forEach(s => obs.observe(s));
+
+  /* ========================================================
+     IntersectionObserver — slide 06 timeline (modo site).
+     No mobile cada .mp anima individualmente quando entra no
+     viewport, em vez de todos juntos quando o .slide vira
+     .in-view (faria o usuário rolar até 2026 com tudo já
+     animado). No desktop esse observer fica inativo — a
+     animação em massa do .slide.in-view é o comportamento
+     correto pro modo apresentação 16:9.
+     ======================================================== */
+  (function setupTimelineMpObserver() {
+    const mps = document.querySelectorAll('.slide-timeline .mp');
+    if (!mps.length) return;
+    const mpObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('mp-in-view'); });
+    }, { threshold: 0.3 });
+    const siteMQ = window.matchMedia('(max-width: 1023px)');
+    function sync() {
+      if (siteMQ.matches) {
+        mps.forEach(mp => mpObs.observe(mp));
+      } else {
+        mps.forEach(mp => mpObs.unobserve(mp));
+      }
+    }
+    sync();
+    siteMQ.addEventListener('change', sync);
+  })();
 
   /* ========================================================
      Wrapping — envolve cada .slide num .slide-wrap dedicado
