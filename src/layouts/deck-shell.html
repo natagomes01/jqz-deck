@@ -441,6 +441,42 @@
   }
 
   /* =========================================================
+     FROTA TABLE (slide 30)
+     ========================================================= */
+  .frota-table {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px;
+    margin: 14px 0 18px;
+  }
+  .frota-col-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--red-deep);
+    border-bottom: 2px solid var(--red-deep);
+    padding-bottom: 6px; margin-bottom: 6px;
+  }
+  .frota-col-title.alt {
+    color: var(--charcoal);
+    border-bottom-color: var(--gray-mid);
+  }
+  .frota-row {
+    display: flex; align-items: baseline; gap: 12px; padding: 4px 0;
+  }
+  .frota-qty {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+    font-size: 26px; line-height: 1;
+    color: var(--red-deep);
+    min-width: 32px; text-align: right;
+  }
+  .frota-row.op .frota-qty {
+    color: var(--charcoal); font-weight: 700; font-size: 22px;
+  }
+  .frota-label {
+    font-family: 'Inter', sans-serif; font-size: 12px; color: var(--charcoal);
+    line-height: 1.35;
+  }
+  .frota-row.op .frota-label { color: var(--gray-dark); }
+
+  /* =========================================================
      GALLERY
      ========================================================= */
   .slide-gallery { background: var(--cream); }
@@ -933,6 +969,7 @@
     .ss-grid { grid-template-columns: 1fr; }
     .big-stats { grid-template-columns: 1fr; }
     .big-stats.three { grid-template-columns: 1fr; }
+    .frota-table { grid-template-columns: 1fr; gap: 18px; }
     .clients-grid-flip { grid-template-columns: repeat(2, 1fr); }
     .client-card { padding-top: 50%; }
   }
