@@ -972,6 +972,22 @@
     .frota-table { grid-template-columns: 1fr; gap: 18px; }
     .clients-grid-flip { grid-template-columns: repeat(2, 1fr); }
     .client-card { padding-top: 50%; }
+
+    /* Slide 04 · stagger nos KPIs em modo 1-col (cf. manutencao.md [L5]) */
+    .slide-kpi .kpi-card {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .5s var(--ease-soft), transform .5s var(--ease-soft);
+    }
+    .slide-kpi.in-view .kpi-card { opacity: 1; transform: translateY(0); }
+    .slide-kpi.in-view .kpi-grid .kpi-card:nth-child(1) { transition-delay: 0.05s; }
+    .slide-kpi.in-view .kpi-grid .kpi-card:nth-child(2) { transition-delay: 0.12s; }
+    .slide-kpi.in-view .kpi-grid .kpi-card:nth-child(3) { transition-delay: 0.19s; }
+    .slide-kpi.in-view .kpi-grid .kpi-card:nth-child(4) { transition-delay: 0.26s; }
+    .slide-kpi.in-view .kpi-grid + .kpi-grid .kpi-card:nth-child(1) { transition-delay: 0.33s; }
+    .slide-kpi.in-view .kpi-grid + .kpi-grid .kpi-card:nth-child(2) { transition-delay: 0.40s; }
+    .slide-kpi.in-view .kpi-grid + .kpi-grid .kpi-card:nth-child(3) { transition-delay: 0.47s; }
+    .slide-kpi.in-view .kpi-grid + .kpi-grid .kpi-card:nth-child(4) { transition-delay: 0.54s; }
   }
 
   /* =========================================================
@@ -1004,7 +1020,7 @@
     .slide *, .slide *::before, .slide *::after {
       transition: none !important; animation: none !important;
     }
-    .frente-stack, .mp .mp-dot, .client-card, .quem-list li { opacity: 1 !important; transform: none !important; }
+    .frente-stack, .mp .mp-dot, .client-card, .quem-list li, .kpi-card { opacity: 1 !important; transform: none !important; }
     .slide.in-view .mp .mp-dot { transform: scale(1) !important; }
     .project-media img { transform: none !important; }
   }
@@ -1019,7 +1035,7 @@
       animation-iteration-count: 1 !important;
     }
     .slide { opacity: 1 !important; transform: none !important; }
-    .frente-stack, .client-card, .mp .mp-dot, .quem-list li { opacity: 1 !important; transform: none !important; }
+    .frente-stack, .client-card, .mp .mp-dot, .quem-list li, .kpi-card { opacity: 1 !important; transform: none !important; }
     .slide.in-view .mp .mp-dot { transform: scale(1) !important; }
     .project-media img { transform: none !important; }
   }
